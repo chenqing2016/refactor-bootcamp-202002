@@ -1,12 +1,5 @@
 package cc.xpbootcamp.warmup.cashier;
 
-/**
- * OrderReceipt prints the details of order including customer name, address, description, quantity,
- * price and amount. It also calculates the sales tax @ 10% and prints as part
- * of order. It computes the total order amount (amount of individual lineItems +
- * total sales tax) and prints it.
- *
- */
 public class OrderReceipt {
     private Order order;
 
@@ -16,42 +9,33 @@ public class OrderReceipt {
 
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
-
-        // print headers
         output.append("======Printing Orders======\n");
-
-        // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
         output.append(order.getCustomerName());
         output.append(order.getCustomerAddress());
-//        output.append(order.getCustomerLoyaltyNumber());
-
-        // prints lineItems
+        StringBuilder purchaseInfo = getPurchaseInfo();
+        output.append(purchaseInfo);
+        return output.toString();
+    }
+    public StringBuilder getPurchaseInfo(){
+        StringBuilder output = new StringBuilder();
         double totSalesTx = 0d;
         double tot = 0d;
-        for (PurchaseInfo purchaseInfo : order.getLineItems()) {
-            output.append(purchaseInfo.getDescription());
+        for (PurchaseItem purchaseItem : order.getPurchaseItemList()) {
+            double calculatedPrice = purchaseItem.calculatePrice();
+            output.append(purchaseItem.getDescription());
             output.append('\t');
-            output.append(purchaseInfo.getPrice());
+            output.append(purchaseItem.getPrice());
             output.append('\t');
-            output.append(purchaseInfo.getQuantity());
+            output.append(purchaseItem.getQuantity());
             output.append('\t');
-            output.append(purchaseInfo.calculateTotalPrice());
+            output.append(calculatedPrice);
             output.append('\n');
-
-            // calculate sales tax @ rate of 10%
-            double salesTax = purchaseInfo.calculateTotalPrice() * .10;
+            double salesTax = calculatedPrice * .10;
             totSalesTx += salesTax;
-
-            // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += purchaseInfo.calculateTotalPrice() + salesTax;
+            tot += calculatedPrice + salesTax;
         }
-
-        // prints the state tax
         output.append("Sales Tax").append('\t').append(totSalesTx);
-
-        // print total amount
         output.append("Total Amount").append('\t').append(tot);
-        return output.toString();
+        return output;
     }
 }

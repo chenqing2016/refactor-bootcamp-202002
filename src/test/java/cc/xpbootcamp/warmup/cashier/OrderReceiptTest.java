@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.containsString;
 class OrderReceiptTest {
     @Test
     void shouldPrintCustomerInformationOnOrder() {
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<PurchaseInfo>());
+        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<PurchaseItem>());
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
@@ -23,15 +23,14 @@ class OrderReceiptTest {
 
     @Test
     public void shouldPrintLineItemAndSalesTaxInformation() {
-        List<PurchaseInfo> purchaseInfos = new ArrayList<PurchaseInfo>() {{
-            add(new PurchaseInfo("milk", 10.0, 2));
-            add(new PurchaseInfo("biscuits", 5.0, 5));
-            add(new PurchaseInfo("chocolate", 20.0, 1));
+        List<PurchaseItem> purchaseItems = new ArrayList<PurchaseItem>() {{
+            add(new PurchaseItem("milk", 10.0, 2));
+            add(new PurchaseItem("biscuits", 5.0, 5));
+            add(new PurchaseItem("chocolate", 20.0, 1));
         }};
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, purchaseInfos));
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, purchaseItems));
 
         String output = receipt.printReceipt();
-
         assertThat(output, containsString("milk\t10.0\t2\t20.0\n"));
         assertThat(output, containsString("biscuits\t5.0\t5\t25.0\n"));
         assertThat(output, containsString("chocolate\t20.0\t1\t20.0\n"));

@@ -1,11 +1,11 @@
 package cc.xpbootcamp.warmup.cashier;
 
-public class PurchaseInfo {
+public class PurchaseItem {
 	private String description;
 	private double price;
 	private int quantity;
 
-	public PurchaseInfo(String desc, double price, int qty) {
+	public PurchaseItem(String desc, double price, int qty) {
 		this.description = desc;
 		this.price = price;
 		this.quantity = qty;
@@ -23,7 +23,7 @@ public class PurchaseInfo {
 		return quantity;
 	}
 
-    double calculateTotalPrice() {
+    double calculatePrice() {
         return price * quantity;
     }
 }
