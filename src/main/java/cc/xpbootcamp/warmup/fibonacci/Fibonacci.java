@@ -1,11 +1,11 @@
 package cc.xpbootcamp.warmup.fibonacci;
 
 public class Fibonacci {
-    public int getFibonacci(int rankSize) {
-        if (rankSize==1||rankSize==2){
+    public int getFibonacci(int position) {
+        if (position==1||position==2){
             return 1;
         }else{
-            return getFibonacci(rankSize-1)+getFibonacci(rankSize-2);
+            return getFibonacci(position-1)+getFibonacci(position-2);
         }
     }
 }

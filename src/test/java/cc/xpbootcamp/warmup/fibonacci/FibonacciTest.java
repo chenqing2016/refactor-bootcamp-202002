@@ -7,7 +7,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class FibonacciTest {
 
     @Test
-    public void should_return_one_when_has_a_number(){
+    public void should_return_1_when_get_fibonacci_given_position_is_1(){
 
         Fibonacci fibonacci = new Fibonacci();
         int result=fibonacci.getFibonacci(1);
@@ -16,7 +16,7 @@ public class FibonacciTest {
     }
 
     @Test
-    public void should_return_one_when_have_two_numbers(){
+    public void should_return_1_when_get_fibonacci_given_position_is_2(){
 
         Fibonacci fibonacci = new Fibonacci();
         int result = fibonacci.getFibonacci(2);
@@ -25,7 +25,7 @@ public class FibonacciTest {
     }
 
     @Test
-    public void should_return_two_when_have_three_numbers(){
+    public void should_return_2_when_get_fibonacci_given_position_is_3(){
 
         Fibonacci fibonacci = new Fibonacci();
         int result = fibonacci.getFibonacci(3);
@@ -34,7 +34,7 @@ public class FibonacciTest {
     }
 
     @Test
-    public void should_return_three_when_have_four_numbers(){
+    public void should_return_3_when_get_fibonacci_given_position_is_4(){
 
         Fibonacci fibonacci = new Fibonacci();
         int result = fibonacci.getFibonacci(4);
@@ -42,4 +42,12 @@ public class FibonacciTest {
         assertThat(result).isEqualTo(3);
     }
 
+    @Test
+    public void should_return_89_when_get_fibonacci_given_position_is_11(){
+
+        Fibonacci fibonacci = new Fibonacci();
+        int result = fibonacci.getFibonacci(11);
+
+        assertThat(result).isEqualTo(89);
+    }
 }
