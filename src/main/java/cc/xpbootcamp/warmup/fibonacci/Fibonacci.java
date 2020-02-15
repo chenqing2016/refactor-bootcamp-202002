@@ -1,7 +1,7 @@
 package cc.xpbootcamp.warmup.fibonacci;
 
 public class Fibonacci {
-    public int getFibonacci(int position) {
+    public long getFibonacci(int position) {
         if (position==1||position==2){
             return 1;
         }else{
