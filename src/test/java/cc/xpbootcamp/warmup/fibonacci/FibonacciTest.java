@@ -7,7 +7,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class FibonacciTest {
 
     @Test
-    public void should_return_one_when_having_a_number(){
+    public void should_return_one_when_has_a_number(){
 
         Fibonacci fibonacci = new Fibonacci();
         int result=fibonacci.getFibonacci(1);
@@ -31,6 +31,15 @@ public class FibonacciTest {
         int result = fibonacci.getFibonacci(3);
 
         assertThat(result).isEqualTo(2);
+    }
+
+    @Test
+    public void should_return_three_when_have_four_numbers(){
+
+        Fibonacci fibonacci = new Fibonacci();
+        int result = fibonacci.getFibonacci(4);
+
+        assertThat(result).isEqualTo(3);
     }
 
 }
