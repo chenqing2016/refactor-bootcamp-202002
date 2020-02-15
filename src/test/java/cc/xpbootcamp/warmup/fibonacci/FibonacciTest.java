@@ -24,4 +24,13 @@ public class FibonacciTest {
         assertThat(result).isEqualTo(1);
     }
 
+    @Test
+    public void should_return_two_when_have_three_numbers(){
+
+        Fibonacci fibonacci = new Fibonacci();
+        int result = fibonacci.getFibonacci(3);
+
+        assertThat(result).isEqualTo(2);
+    }
+
 }
