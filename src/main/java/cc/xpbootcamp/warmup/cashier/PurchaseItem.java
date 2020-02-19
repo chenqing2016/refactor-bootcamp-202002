@@ -1,29 +1,29 @@
 package cc.xpbootcamp.warmup.cashier;
 
 public class PurchaseItem {
-	private String description;
-	private double price;
-	private int quantity;
+    private String description;
+    private double price;
+    private int quantity;
 
-	public PurchaseItem(String desc, double price, int qty) {
-		this.description = desc;
-		this.price = price;
-		this.quantity = qty;
-	}
+    public PurchaseItem(String desc, double price, int qty) {
+        this.description = desc;
+        this.price = price;
+        this.quantity = qty;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-    double calculatePrice() {
+    double calculatePurchaseItemPrice() {
         return price * quantity;
     }
 }

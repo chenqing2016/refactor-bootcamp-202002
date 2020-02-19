@@ -22,7 +22,7 @@ class OrderReceiptTest {
      static void initAll(){
         mockDate = mock(DateUtil.class);
         when(mockDate.formatDate("yyyy年MM月dd日,EEEE")).thenReturn("");
-        when(mockDate.formatDate("E")).thenReturn("周二");
+        when(mockDate.verifyDiscountDay("周三")).thenReturn(false);
     }
     @Test
     void shouldPrintCustomerInformationOnOrder() {
@@ -63,7 +63,7 @@ class OrderReceiptTest {
         List<PurchaseItem> purchaseItems = new ArrayList<PurchaseItem>() {{
             add(new PurchaseItem("milk", 10.0, 2));
         }};
-        when(mockDate.formatDate("E")).thenReturn("周三");
+        when(mockDate.verifyDiscountDay("周三")).thenReturn(true);
         OrderReceipt receipt = new OrderReceipt(new Order(null, null, purchaseItems), mockDate);
 
 

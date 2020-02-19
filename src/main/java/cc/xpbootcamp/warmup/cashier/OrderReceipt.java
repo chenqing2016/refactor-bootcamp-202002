@@ -1,9 +1,11 @@
 package cc.xpbootcamp.warmup.cashier;
 
 public class OrderReceipt {
+
     private Order order;
-    private final static String wednesday ="周三";
-    private static double discountRate =0.02;
+    private final static String wednesday = "周三";
+    private final static double discountRate = 0.02;
+    private final static double taxRate = .10;
     final DateUtil dateUtil;
 
     public OrderReceipt(Order order, DateUtil dateUtil) {
@@ -24,36 +26,42 @@ public class OrderReceipt {
         return output.toString();
     }
 
-
-
-    public StringBuilder getPurchaseInfo(){
+    public StringBuilder calculateTaxAndDiscount(double totalPrice) {
         StringBuilder output = new StringBuilder();
-        double totalSalesTax = 0d;
+        double discountPrice = 0;
+        double currentTotalPrice = totalPrice;
+        Boolean isDiscountDay = dateUtil.verifyDiscountDay(wednesday);
+        double salesTax = totalPrice * taxRate;
+        currentTotalPrice = totalPrice + salesTax;
+        if (isDiscountDay) {
+            discountPrice = currentTotalPrice * discountRate;
+            currentTotalPrice -= discountPrice;
+        }
+        output.append("税额:").append(salesTax).append("\n");
+        if (isDiscountDay) {
+            output.append("折扣:").append(discountPrice).append("\n");
+        }
+        output.append("总价:").append(currentTotalPrice);
+        return output;
+    }
+
+    public StringBuilder getPurchaseInfo() {
+        StringBuilder output = new StringBuilder();
         double totalPrice = 0d;
-        double discountPrice=0d;
-        Boolean isWednesday = dateUtil.formatDate("E").equals(wednesday);
         for (PurchaseItem purchaseItem : order.getPurchaseItemList()) {
-            double calculatedPrice = purchaseItem.calculatePrice();
+            double calculatedPrice = purchaseItem.calculatePurchaseItemPrice();
             output.append(purchaseItem.getDescription());
             output.append(',');
-            output.append(purchaseItem.getPrice()+"x"+purchaseItem.getQuantity());
+            output.append(purchaseItem.getPrice() + "x" + purchaseItem.getQuantity());
             output.append(',');
             output.append(calculatedPrice);
             output.append('\n');
-            double salesTax = calculatedPrice * .10;
-            totalSalesTax += salesTax;
-            totalPrice += calculatedPrice + salesTax;
-            if (isWednesday){
-                discountPrice=totalPrice*discountRate;
-                totalPrice=totalPrice-discountPrice;
-            }
+            totalPrice += calculatedPrice;
         }
         output.append("-----------------------\n");
-        output.append("税额:").append(totalSalesTax).append("\n");
-        if (isWednesday){
-            output.append("折扣:").append(discountPrice).append("\n");
-        }
-        output.append("总价:").append(totalPrice);
+        StringBuilder taxAndDiscountPriceInfo = calculateTaxAndDiscount(totalPrice);
+        output.append(taxAndDiscountPriceInfo);
         return output;
     }
+
 }
