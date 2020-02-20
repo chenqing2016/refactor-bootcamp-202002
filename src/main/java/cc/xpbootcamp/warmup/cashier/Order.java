@@ -7,7 +7,7 @@ public class Order {
     private List<PurchaseItem> purchaseItemList;
     private static final String wednesday = "周三";
     private static final double discountRate = 0.02;
-    private static final double taxRate = .10;
+    private static final double TAX_RATE = .10;
 
     public Order(List<PurchaseItem> purchaseItemList) {
 
@@ -27,4 +27,9 @@ public class Order {
         return preTaxTotalPrice;
     }
 
+    public double getPostTaxPrice() {
+
+        double preTaxTotalPrice = getPreTaxTotalPrice();
+        return preTaxTotalPrice=preTaxTotalPrice*TAX_RATE+preTaxTotalPrice;
+    }
 }
