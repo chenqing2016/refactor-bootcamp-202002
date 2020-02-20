@@ -30,13 +30,13 @@ public class Order {
     public double getTaxPrice() {
 
         double preTaxTotalPrice = getPreTaxTotalPrice();
-        return preTaxTotalPrice * TAX_RATE ;
+        return preTaxTotalPrice * TAX_RATE;
     }
 
 
     public double getDiscountPrice() {
         if (DateUtils.verifyDiscountDay(new Date(), Constants.DISCOUNT_DAY)) {
-            double postTaxPrice = getTaxPrice()+getPreTaxTotalPrice();
+            double postTaxPrice = getTaxPrice() + getPreTaxTotalPrice();
             return postTaxPrice * DISCOUNT_RATE;
         }
         return 0d;

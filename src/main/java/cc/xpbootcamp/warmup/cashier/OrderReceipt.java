@@ -5,6 +5,8 @@ import java.util.Date;
 public class OrderReceipt {
 
     private Order order;
+    private static final String TITLE = "=====老王超市,值得信赖=====";
+    private static final String DATE_PATTERN = "yyyy年MM月dd日,EEEE";
 
     public OrderReceipt(Order order) {
         this.order = order;
@@ -20,9 +22,9 @@ public class OrderReceipt {
 
     public StringBuilder printHeader() {
         StringBuilder output = new StringBuilder();
-        output.append("=====老王超市,值得信赖=====\n");
+        output.append(TITLE).append("\n");
         output.append("\n");
-        output.append(DateUtils.formatDate("yyyy年MM月dd日,EEEE", new Date()));
+        output.append(DateUtils.formatDate(new Date(), DATE_PATTERN));
         output.append("\n\n");
         return output;
     }
@@ -43,7 +45,6 @@ public class OrderReceipt {
     }
 
     public StringBuilder printFooter() {
-
         double taxPrice = order.getTaxPrice();
         double discountPrice = order.getDiscountPrice();
         double preTaxTotalPrice = order.getPreTaxTotalPrice();
