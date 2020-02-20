@@ -1,6 +1,6 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -20,11 +20,11 @@ import static org.mockito.ArgumentMatchers.any;
 @PrepareForTest( { DateUtils.class })
 public class OrderTest {
 
-    static private List<PurchaseItem> purchaseItems;
-    static private Order order;
+     private List<PurchaseItem> purchaseItems;
+     private Order order;
 
-    @BeforeClass
-    public static void init() {
+    @Before
+    public  void init() {
         purchaseItems = new ArrayList<PurchaseItem>() {{
             add(new PurchaseItem("milk", 10.0, 2));
             add(new PurchaseItem("biscuits", 5.0, 5));
