@@ -31,14 +31,14 @@ public class Order {
     public double getPostTaxPrice() {
 
         double preTaxTotalPrice = getPreTaxTotalPrice();
-        return preTaxTotalPrice*TAX_RATE+preTaxTotalPrice;
+        return preTaxTotalPrice * TAX_RATE + preTaxTotalPrice;
     }
 
 
-    public double getDiscountPrice(){
-        if (DateUtils.verifyDiscountDay(new Date(), DISCOUNT_DAY)){
+    public double getDiscountPrice() {
+        if (DateUtils.verifyDiscountDay(new Date(), DISCOUNT_DAY)) {
             double postTaxPrice = getPostTaxPrice();
-            return postTaxPrice* DISCOUNT_RATE;
+            return postTaxPrice * DISCOUNT_RATE;
         }
         return 0d;
     }

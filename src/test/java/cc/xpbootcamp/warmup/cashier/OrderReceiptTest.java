@@ -1,10 +1,12 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.mockito.Mockito.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -12,40 +14,38 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Mockito.mock;
-class OrderReceiptTest {
+import static org.mockito.ArgumentMatchers.any;
 
-    @Mock
-    static DateUtil mockDate;
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({DateUtils.class})
+public class OrderReceiptTest {
 
-    @BeforeAll
-     static void initAll(){
-        mockDate = mock(DateUtil.class);
-        when(mockDate.formatDate("yyyy年MM月dd日,EEEE")).thenReturn("");
-        when(mockDate.verifyDiscountDay("周三")).thenReturn(false);
-    }
-    @Test
-    void shouldPrintCustomerInformationOnOrder() {
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<PurchaseItem>());
+    private List<PurchaseItem> purchaseItems;
+    private OrderReceipt receipt;
 
-        OrderReceipt receipt = new OrderReceipt(order, mockDate);
-
-        String output = receipt.printReceipt();
-
-
-        assertThat(output, containsString("Mr X"));
-        assertThat(output, containsString("Chicago, 60601"));
-    }
-
-    @Test
-    public void shouldPrintLineItemAndSalesTaxInformationWhenDayIsNotWednesday() throws ParseException {
-        List<PurchaseItem> purchaseItems = new ArrayList<PurchaseItem>() {{
+    @Before
+    public void init(){
+        purchaseItems = new ArrayList<PurchaseItem>() {{
             add(new PurchaseItem("milk", 10.0, 2));
             add(new PurchaseItem("biscuits", 5.0, 5));
             add(new PurchaseItem("chocolate", 20.0, 1));
         }};
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, purchaseItems), mockDate);
+         receipt = new OrderReceipt(new Order(purchaseItems));
+    }
 
+    @Test
+    public void shouldPrintLineHeader(){
+
+        PowerMockito.mockStatic(DateUtils.class);
+        PowerMockito.when(DateUtils.formatDate(any(), any())).thenReturn("2020年02月20日,星期三");
+
+        String result = receipt.printHeader().toString();
+
+        assertThat(result,containsString("=====老王超市,值得信赖====="));
+        assertThat(result,containsString("2020年02月20日,星期三"));
+    }
+    @Test
+    public void shouldPrintLineItemAndSalesTaxInformationWhenDayIsNotWednesday() throws ParseException {
 
         String output = receipt.printReceipt();
         System.out.println(output);
@@ -56,20 +56,5 @@ class OrderReceiptTest {
         assertThat(output,containsString("-----------------------\n"));
         assertThat(output, containsString("税额:6.5\n"));
         assertThat(output, containsString("总价:71.5"));
-    }
-
-    @Test
-    public void shouldPrintLineDiscountPriceWhenDayIsWednesday(){
-        List<PurchaseItem> purchaseItems = new ArrayList<PurchaseItem>() {{
-            add(new PurchaseItem("milk", 10.0, 2));
-        }};
-        when(mockDate.verifyDiscountDay("周三")).thenReturn(true);
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, purchaseItems), mockDate);
-
-
-        String output = receipt.printReceipt();
-        System.out.println(output);
-        assertThat(output, containsString("折扣:0.44"));
-        assertThat(output,containsString("总价:21.56"));
     }
 }
