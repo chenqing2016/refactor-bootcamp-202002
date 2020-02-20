@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class DateUtil {
 
-    Date currentDate = new Date();
+    private Date currentDate = new Date();
 
     public String formatDate(String pattern) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.CHINA);
