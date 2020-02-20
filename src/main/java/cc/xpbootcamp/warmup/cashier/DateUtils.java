@@ -4,16 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateUtil {
+public class DateUtils {
 
-    private Date currentDate = new Date();
-
-    public String formatDate(String pattern) {
+    public static String formatDate(String pattern, Date currentDate) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.CHINA);
         return simpleDateFormat.format(currentDate);
     }
 
-    public Boolean verifyDiscountDay(String week) {
-        return formatDate("E").equals(week);
+    public static Boolean verifyDiscountDay(Date currentDate, String week) {
+        return formatDate("E", currentDate).equals(week);
     }
 }
