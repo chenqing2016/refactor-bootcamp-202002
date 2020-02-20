@@ -46,9 +46,9 @@ public class OrderReceiptTest {
 
         String output = receipt.printPurchaseDetailInfo().toString();
 
-        assertThat(output, containsString("milk,10.0x2,20.0\n"));
-        assertThat(output, containsString("biscuits,5.0x5,25.0\n"));
-        assertThat(output, containsString("chocolate,20.0x1,20.0\n"));
+        assertThat(output, containsString("milk,10.0 x 2,20.0\n"));
+        assertThat(output, containsString("biscuits,5.0 x 5,25.0\n"));
+        assertThat(output, containsString("chocolate,20.0 x 1,20.0\n"));
         assertThat(output,containsString("-----------------------\n"));
     }
 
