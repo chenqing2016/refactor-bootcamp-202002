@@ -42,9 +42,9 @@ public class OrderTest {
     @Test
     public void shouldReturnCorrectTaxPrice() {
 
-        double result = order.getPostTaxPrice();
+        double result = order.getTaxPrice();
 
-        assertThat(result).isEqualTo(71.5);
+        assertThat(result).isEqualTo(6.5);
     }
 
     @Test
