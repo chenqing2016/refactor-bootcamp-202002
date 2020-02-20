@@ -14,6 +14,7 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
         output.append(printHeader());
         output.append(printPurchaseDetailInfo());
+        output.append(printFooter());
         return output.toString();
     }
 
@@ -26,32 +27,13 @@ public class OrderReceipt {
         return output;
     }
 
-//    public StringBuilder calculateTaxAndDiscount(double totalPrice) {
-//        StringBuilder output = new StringBuilder();
-//        double discountPrice = 0;
-//        double currentTotalPrice = totalPrice;
-//        Boolean isDiscountDay = dateUtils.verifyDiscountDay(wednesday);
-//        double salesTax = totalPrice * taxRate;
-//        currentTotalPrice = totalPrice + salesTax;
-//        if (isDiscountDay) {
-//            discountPrice = currentTotalPrice * discountRate;
-//            currentTotalPrice -= discountPrice;
-//        }
-//
-//        if (isDiscountDay) {
-//            output.append("折扣:").append(discountPrice).append("\n");
-//        }
-//        output.append("总价:").append(currentTotalPrice);
-//        return output;
-//    }
-
     public StringBuilder printPurchaseDetailInfo() {
         StringBuilder output = new StringBuilder();
         for (PurchaseItem purchaseItem : order.getPurchaseItemList()) {
             double calculatedPrice = purchaseItem.calculatePurchaseItemPrice();
             output.append(purchaseItem.getDescription());
             output.append(',');
-            output.append(purchaseItem.getPrice() + "x" + purchaseItem.getQuantity());
+            output.append(purchaseItem.getPrice() + " x " + purchaseItem.getQuantity());
             output.append(',');
             output.append(calculatedPrice);
             output.append('\n');

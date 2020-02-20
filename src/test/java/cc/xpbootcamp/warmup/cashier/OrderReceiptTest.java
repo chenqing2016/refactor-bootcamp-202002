@@ -79,5 +79,26 @@ public class OrderReceiptTest {
 
     }
 
+    @Test
+    public void shouldPrintReceiptInfoWhenDayIsOffDay(){
 
+        PowerMockito.mockStatic(DateUtils.class);
+        PowerMockito.when(DateUtils.verifyDiscountDay(any(), any())).thenReturn(true);
+        PowerMockito.when(DateUtils.formatDate(any(), any())).thenReturn("2020年02月20日,星期三");
+
+        String result=receipt.printReceipt().toString();
+
+        System.out.println(result);
+
+        assertThat(result,containsString("=====老王超市,值得信赖====="));
+        assertThat(result,containsString("2020年02月20日,星期三"));
+        assertThat(result, containsString("milk,10.0 x 2,20.0"));
+        assertThat(result, containsString("biscuits,5.0 x 5,25.0"));
+        assertThat(result, containsString("chocolate,20.0 x 1,20.0"));
+        assertThat(result,containsString("-----------------------"));
+        assertThat(result,containsString("税额:6.5"));
+        assertThat(result,containsString("总价:70.07"));
+        assertThat(result,containsString("折扣:1.43"));
+
+    }
 }
