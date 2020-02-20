@@ -44,17 +44,16 @@ public class OrderReceiptTest {
         assertThat(result,containsString("=====老王超市,值得信赖====="));
         assertThat(result,containsString("2020年02月20日,星期三"));
     }
-    @Test
-    public void shouldPrintLineItemAndSalesTaxInformationWhenDayIsNotWednesday() throws ParseException {
 
-        String output = receipt.printReceipt();
+    @Test
+    public void shouldPrintLineItemAndPurchaseDetailInformation(){
+
+        String output = receipt.printPurchaseDetailInfo().toString();
         System.out.println(output);
-        assertThat(output,containsString("=====老王超市,值得信赖====="));
         assertThat(output, containsString("milk,10.0x2,20.0\n"));
         assertThat(output, containsString("biscuits,5.0x5,25.0\n"));
         assertThat(output, containsString("chocolate,20.0x1,20.0\n"));
         assertThat(output,containsString("-----------------------\n"));
-        assertThat(output, containsString("税额:6.5\n"));
-        assertThat(output, containsString("总价:71.5"));
     }
+
 }

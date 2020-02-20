@@ -13,7 +13,7 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
         output.append(printHeader());
-        output.append(getPurchaseInfo());
+        output.append(printPurchaseDetailInfo());
         return output.toString();
     }
 
@@ -45,9 +45,8 @@ public class OrderReceipt {
 //        return output;
 //    }
 
-    public StringBuilder getPurchaseInfo() {
+    public StringBuilder printPurchaseDetailInfo() {
         StringBuilder output = new StringBuilder();
-        double totalPrice = 0d;
         for (PurchaseItem purchaseItem : order.getPurchaseItemList()) {
             double calculatedPrice = purchaseItem.calculatePurchaseItemPrice();
             output.append(purchaseItem.getDescription());
@@ -56,11 +55,8 @@ public class OrderReceipt {
             output.append(',');
             output.append(calculatedPrice);
             output.append('\n');
-            totalPrice += calculatedPrice;
         }
         output.append("-----------------------\n");
-//        StringBuilder taxAndDiscountPriceInfo = calculateTaxAndDiscount(totalPrice);
-//        output.append(taxAndDiscountPriceInfo);
         return output;
     }
 }
