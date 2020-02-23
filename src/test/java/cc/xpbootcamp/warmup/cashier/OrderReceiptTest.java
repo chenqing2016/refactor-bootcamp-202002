@@ -90,8 +90,6 @@ public class OrderReceiptTest {
 
         String result = receipt.printReceipt().toString();
 
-        System.out.println(result);
-
         assertThat(result, containsString("=====老王超市,值得信赖====="));
         assertThat(result, containsString("2020年02月20日,星期三"));
         assertThat(result, containsString("milk,10.0 x 2,20.0"));

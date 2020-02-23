@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DateUtils {
-    private static final String WEEK_PATTERN = "E";
+    public static final String WEEK_PATTERN = "E";
+    public static final String DISCOUNT_DAY = "周三";
+    public static final String DATE_PATTERN = "yyyy年MM月dd日,EEEE";
 
     public static String formatDate(Date currentDate, String pattern) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.CHINA);

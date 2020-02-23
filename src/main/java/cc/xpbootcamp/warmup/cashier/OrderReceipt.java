@@ -6,13 +6,13 @@ public class OrderReceipt {
 
     private Order order;
     private static final String TITLE = "=====老王超市,值得信赖=====";
-    private static final String DATE_PATTERN = "yyyy年MM月dd日,EEEE";
 
-    public OrderReceipt(Order order) {
+
+    OrderReceipt(Order order) {
         this.order = order;
     }
 
-    public String printReceipt() {
+    String printReceipt() {
         StringBuilder output = new StringBuilder();
         output.append(printHeader());
         output.append(printPurchaseDetailInfo());
@@ -20,16 +20,16 @@ public class OrderReceipt {
         return output.toString();
     }
 
-    public StringBuilder printHeader() {
+    StringBuilder printHeader() {
         StringBuilder output = new StringBuilder();
         output.append(TITLE).append("\n");
         output.append("\n");
-        output.append(DateUtils.formatDate(new Date(), DATE_PATTERN));
+        output.append(DateUtils.formatDate(new Date(), DateUtils.DATE_PATTERN));
         output.append("\n\n");
         return output;
     }
 
-    public StringBuilder printPurchaseDetailInfo() {
+    StringBuilder printPurchaseDetailInfo() {
         StringBuilder output = new StringBuilder();
         for (PurchaseItem purchaseItem : order.getPurchaseItemList()) {
             double calculatedPrice = purchaseItem.calculatePurchaseItemPrice();
@@ -44,13 +44,13 @@ public class OrderReceipt {
         return output;
     }
 
-    public StringBuilder printFooter() {
+    StringBuilder printFooter() {
         double taxPrice = order.getTaxPrice();
         double discountPrice = order.getDiscountPrice();
-        double preTaxTotalPrice = order.getPreTaxTotalPrice();
+        double preTaxTotalPrice = order.preTaxTotalPrice;
         StringBuilder output = new StringBuilder();
         output.append("税额:").append(taxPrice).append("\n");
-        if (DateUtils.verifyDiscountDay(new Date(), Constants.DISCOUNT_DAY)) {
+        if (DateUtils.verifyDiscountDay(new Date(), DateUtils.DISCOUNT_DAY)) {
             output.append("折扣:").append(discountPrice).append("\n");
         }
         output.append("总价:").append(preTaxTotalPrice + taxPrice - discountPrice);
